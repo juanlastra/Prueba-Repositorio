@@ -34,6 +34,11 @@ html:
   use_repository_button: true
   use_issues_button: true
   use_edit_page_button: false
+
+  # Estas dos líneas ocultan los bloques de código (inputs) en todo el libro
+  codecell_display: false
+  use_togglebutton: false
+
   extra_footer: |
     <div style="text-align:center;">
       © 2025 Sandra Guzmán y Grupo 9 — Pontificia Universidad Javeriana
@@ -47,3 +52,6 @@ sphinx:
     html_show_copyright: false
     html_theme_options:
       navigation_with_keys: true
+    # Esto asegura que los estilos se apliquen correctamente al ocultar código
+    hide_input: true
+
