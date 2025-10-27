@@ -6,16 +6,28 @@ root: ./
 title: "Series de Tiempo 2025 - Grupo 9"
 author: "Sandra Guzmán y Grupo 9"
 
+# ====================================================
+# CONTROL DE EJECUCIÓN DE NOTEBOOKS
+# ====================================================
 execute:
-  execute_notebooks: "off"
+  execute_notebooks: "off"   # no ejecuta los notebooks durante la construcción
 
+# ====================================================
+# ESTRUCTURA Y RUTAS
+# ====================================================
 only_build_toc_files: true
 
+# ====================================================
+# REPOSITORIO (IMPORTANTE para desplegar correctamente en GitHub Pages)
+# ====================================================
 repository:
   url: https://github.com/Sandra-guzman/Series-de-tiempo-2025-grupo-9
   branch: main
   path_to_book: book
 
+# ====================================================
+# OPCIONES DE HTML Y VISUALIZACIÓN
+# ====================================================
 html:
   favicon: ""
   logo: ""
@@ -27,13 +39,22 @@ html:
       © 2025 Sandra Guzmán y Grupo 9 — Pontificia Universidad Javeriana
     </div>
   extra_css:
-    - _static/hide_code.css   # 👈 agregamos una hoja de estilo personalizada
+    - _static/hide_code.css   
 
+# ====================================================
+# CONFIGURACIÓN DE SPHINX Y MYST-NB
+# ====================================================
 sphinx:
   config:
-    nb_execution_show_input: false      # oculta entradas
-    nb_render_plugin: "myst-nb"         # asegura el motor correcto
-    myst_nb:
-      remove_code_source: true          # elimina el código fuente
+    html_show_sourcelink: false
     html_theme_options:
       navigation_with_keys: true
+
+    # Configuración moderna de myst-nb
+    myst_nb:
+      renderer: "sphinx"          # renderer correcto (evita el error de entry point)
+      remove_code_source: true    # oculta las celdas de código
+      remove_code_outputs: false  # muestra las salidas (puedes poner true si también quieres ocultarlas)
+      code_prompt_show: false     # oculta el botón “Show code”
+      code_prompt_hide: false
+      execution_mode: "off"       # evita ejecución por seguridad
