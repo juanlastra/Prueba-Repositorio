@@ -1,0 +1,1327 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Descomposición y Estacionariedad de la Serie de Producción de Café &#8212; Series de Tiempo 2025 - Grupo 9</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=c73c0f3e"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Capitulo2';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="CAPITULO 1:" href="Capitulo1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Series de Tiempo 2025 - Grupo 9</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Capitulo0.html">Capítulo 0: Propuesta del conjunto de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Capitulo1.html">Capítulo 1: Análisis gráfico del conjunto de datos</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Capítulo 2: Modelos y resultados</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Capitulo2.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Descomposición y Estacionariedad de la Serie de Producción de Café</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="descomposicion-y-estacionariedad-de-la-serie-de-produccion-de-cafe">
+<h1>Descomposición y Estacionariedad de la Serie de Producción de Café<a class="headerlink" href="#descomposicion-y-estacionariedad-de-la-serie-de-produccion-de-cafe" title="Link to this heading">#</a></h1>
+<p>En este capítulo se analiza la producción de café en Colombia a lo largo del tiempo, aplicando técnicas de descomposición, pruebas de estacionariedad y diferenciación. Estas herramientas permiten identificar tendencias y variaciones cíclicas, preparando la serie para un análisis predictivo más preciso.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<span class="c1"># Pasos: FILTRADO Y CONSTRUCCIÓN DE LA SERIE TEMPORAL (mejorado)</span>
+<span class="c1"># ----------------------------------------------------------</span>
+<span class="c1"># Objetivo:</span>
+<span class="c1">#   1. Filtrar país y producto</span>
+<span class="c1">#   2. Crear serie temporal de Producción</span>
+<span class="c1">#   3. Graficar evolución</span>
+<span class="c1">#   4. Mostrar resumen estadístico mejorado</span>
+<span class="c1"># ==========================================================</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># --- 1. Definir país y producto ---</span>
+<span class="n">pais_objetivo</span> <span class="o">=</span> <span class="s2">&quot;Colombia&quot;</span>
+<span class="n">producto_objetivo</span> <span class="o">=</span> <span class="s2">&quot;Coffee&quot;</span>
+
+<span class="c1"># --- 2. Filtrar la base ---</span>
+<span class="n">df_filtro</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Pais&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pais_objetivo</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Producto&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">producto_objetivo</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_filtro</span> <span class="o">=</span> <span class="n">df_filtro</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Año&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- 3. Crear la serie temporal ---</span>
+<span class="n">serie</span> <span class="o">=</span> <span class="n">df_filtro</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;Año&quot;</span><span class="p">)[</span><span class="s2">&quot;Produccion&quot;</span><span class="p">]</span>
+
+<span class="c1"># --- 4. Gráfica inicial ---</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">serie</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Evolución de la Producción — </span><span class="si">{</span><span class="n">pais_objetivo</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">producto_objetivo</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Año&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Producción (toneladas)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># --- 5. Resumen estadístico----</span>
+<span class="n">anio_inicio</span> <span class="o">=</span> <span class="n">serie</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">anio_fin</span> <span class="o">=</span> <span class="n">serie</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">cambio_total</span> <span class="o">=</span> <span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">serie</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">tasa_anual</span> <span class="o">=</span> <span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">serie</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">anio_fin</span> <span class="o">-</span> <span class="n">anio_inicio</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="n">resumen</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Estadístico&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;Media&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Mediana&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Desviación estándar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Mínimo&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Máximo&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Rango (máx - mín)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Primer año&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Último año&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Cambio total (últ - 1er año)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Tasa promedio anual (%)&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;Valor&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">serie</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">anio_inicio</span><span class="p">,</span>
+        <span class="n">anio_fin</span><span class="p">,</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">cambio_total</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">tasa_anual</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Resumen estadístico de la serie de Producción:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">resumen</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/375e414818a168e79a5d84e3c072b481e8201379b6229667a7c337cf7d638a0f.png" src="_images/375e414818a168e79a5d84e3c072b481e8201379b6229667a7c337cf7d638a0f.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Resumen estadístico de la serie de Producción:
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-331fb4b1-f7df-4ee7-ac96-7fd0bb918352" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Estadístico</th>
+      <th>Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Media</td>
+      <td>5276842.17</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mediana</td>
+      <td>4757693.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Desviación estándar</td>
+      <td>2743411.45</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Mínimo</td>
+      <td>417537.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Máximo</td>
+      <td>9918159.00</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Rango (máx - mín)</td>
+      <td>9500622.00</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Primer año</td>
+      <td>1990.00</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Último año</td>
+      <td>2024.00</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Cambio total (últ - 1er año)</td>
+      <td>1942397.00</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Tasa promedio anual (%)</td>
+      <td>0.69</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-331fb4b1-f7df-4ee7-ac96-7fd0bb918352')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-331fb4b1-f7df-4ee7-ac96-7fd0bb918352 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-331fb4b1-f7df-4ee7-ac96-7fd0bb918352');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    <div id="df-02dd9532-1b86-455d-a924-062a279fdd60">
+      <button class="colab-df-quickchart" onclick="quickchart('df-02dd9532-1b86-455d-a924-062a279fdd60')"
+                title="Suggest charts"
+                style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+      </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+      <script>
+        async function quickchart(key) {
+          const quickchartButtonEl =
+            document.querySelector('#' + key + ' button');
+          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+          quickchartButtonEl.classList.add('colab-df-spinner');
+          try {
+            const charts = await google.colab.kernel.invokeFunction(
+                'suggestCharts', [key], {});
+          } catch (error) {
+            console.error('Error during call to suggestCharts:', error);
+          }
+          quickchartButtonEl.classList.remove('colab-df-spinner');
+          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+        }
+        (() => {
+          let quickchartButtonEl =
+            document.querySelector('#df-02dd9532-1b86-455d-a924-062a279fdd60 button');
+          quickchartButtonEl.style.display =
+            google.colab.kernel.accessAllowed ? 'block' : 'none';
+        })();
+      </script>
+    </div>
+
+  <div id="id_69fd5e8c-25ce-40f9-b626-2a32df19ca63">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('resumen')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_69fd5e8c-25ce-40f9-b626-2a32df19ca63 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('resumen');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<p>La serie temporal de la Producción de café en Colombia (1990–2024) muestra una marcada variabilidad interanual, con picos que superan los 9,8 millones de toneladas y caídas por debajo de los 0,5 millones en ciertos periodos. El promedio de producción se sitúa alrededor de 5,27 millones de toneladas, con una desviación estándar elevada, lo que refleja alta inestabilidad en el nivel productivo. Aunque se observa un ligero crecimiento promedio anual del 0,69 %, el comportamiento es irregular, sugiriendo la influencia de factores climáticos y económicos que afectan la consistencia de la producción a lo largo del tiempo.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<span class="c1"># DESCOMPOSICIÓN DE LA SERIE TEMPORAL</span>
+<span class="c1"># ----------------------------------------------------------</span>
+<span class="c1"># Objetivo:</span>
+<span class="c1">#   1. Asegurar datos válidos sin nulos</span>
+<span class="c1">#   2. Aplicar descomposición aditiva</span>
+<span class="c1">#   3. Graficar correctamente (con índice datetime)</span>
+<span class="c1"># ==========================================================</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.tsa.seasonal</span><span class="w"> </span><span class="kn">import</span> <span class="n">seasonal_decompose</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># --- 1. Asegurar que la serie esté limpia ---</span>
+<span class="n">serie</span> <span class="o">=</span> <span class="n">serie</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="n">serie</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">serie</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+<span class="n">n_nulos</span> <span class="o">=</span> <span class="n">serie</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;🔍 Valores faltantes detectados: </span><span class="si">{</span><span class="n">n_nulos</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">n_nulos</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">serie</span> <span class="o">=</span> <span class="n">serie</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Valores faltantes interpolados correctamente.&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- 2. Convertir índice a datetime (solo para graficar y descomponer) ---</span>
+<span class="n">serie</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y&#39;</span><span class="p">)</span>
+
+<span class="c1"># --- 3. Definir periodo de descomposición ---</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">serie</span><span class="p">)</span>
+<span class="n">periodo</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">if</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">periodo</span> <span class="o">&gt;</span> <span class="n">n</span><span class="p">:</span>
+    <span class="n">periodo</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Observaciones: </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> | Período usado para descomposición: </span><span class="si">{</span><span class="n">periodo</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- 4. Descomposición aditiva ---</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">serie</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;additive&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="n">periodo</span><span class="p">)</span>
+
+<span class="c1"># --- 5. Graficar ---</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">res</span><span class="o">.</span><span class="n">observed</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie original&#39;</span><span class="p">)</span>
+<span class="n">res</span><span class="o">.</span><span class="n">trend</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Tendencia&#39;</span><span class="p">)</span>
+<span class="n">res</span><span class="o">.</span><span class="n">seasonal</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Componente cíclico/estacional&#39;</span><span class="p">)</span>
+<span class="n">res</span><span class="o">.</span><span class="n">resid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Residuo&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Descomposición de la Producción — </span><span class="si">{</span><span class="n">pais_objetivo</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">producto_objetivo</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📊 Descomposición realizada correctamente y graficada sin errores.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🔍 Valores faltantes detectados: 0
+Observaciones: 35 | Período usado para descomposición: 10
+</pre></div>
+</div>
+<img alt="_images/a75cd0753645fa8e16862a7d62ed958fd7804d142abdcc150d0835c24fa194e9.png" src="_images/a75cd0753645fa8e16862a7d62ed958fd7804d142abdcc150d0835c24fa194e9.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>📊 Descomposición realizada correctamente y graficada sin errores.
+</pre></div>
+</div>
+</div>
+</div>
+<p>En la descomposición de la serie temporal de la producción de café en Colombia se observa una tendencia claramente ascendente hasta 2010, seguida de un periodo de estabilización y leve descenso hacia los años recientes. El componente cíclico presenta fluctuaciones amplias y regulares, lo que evidencia la presencia de ciclos productivos de mediano plazo vinculados a factores como el clima y los precios internacionales. Dado el carácter anual de la serie, la estacionalidad es poco significativa, mientras que el residuo refleja variaciones aleatorias que podrían asociarse a choques externos o eventos extraordinarios del mercado cafetero.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<span class="c1"># PRUEBA DE ESTACIONARIEDAD (ADF)</span>
+<span class="c1"># ----------------------------------------------------------</span>
+<span class="c1"># Objetivo:</span>
+<span class="c1">#   1. Evaluar si la serie es estacionaria</span>
+<span class="c1">#   2. Determinar si es necesario aplicar diferenciación</span>
+<span class="c1"># ==========================================================</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.tsa.stattools</span><span class="w"> </span><span class="kn">import</span> <span class="n">adfuller</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># --- 1. Graficar la serie original ---</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">serie</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Serie original — Producción </span><span class="si">{</span><span class="n">pais_objetivo</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">producto_objetivo</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Año&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Producción (toneladas)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># --- 2. Aplicar la prueba ADF ---</span>
+<span class="n">resultado_adf</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📊 Resultado de la prueba Dickey-Fuller Aumentada (ADF):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estadístico ADF: </span><span class="si">{</span><span class="n">resultado_adf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Valor p: </span><span class="si">{</span><span class="n">resultado_adf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Número de rezagos usados: </span><span class="si">{</span><span class="n">resultado_adf</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Número de observaciones: </span><span class="si">{</span><span class="n">resultado_adf</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valores críticos para distintos niveles de confianza:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">resultado_adf</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- 3. Interpretación automática ---</span>
+<span class="k">if</span> <span class="n">resultado_adf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Conclusión: La serie ES estacionaria (se rechaza H0).&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   ➜ La media y la varianza son estables en el tiempo.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">⚠️ Conclusión: La serie NO es estacionaria (no se rechaza H0).&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   ➜ Presenta tendencia o variabilidad cambiante; se requerirá diferenciación.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/58302d077bbe43ed6de05c3f4329e1b5f34fb43b033f4dcdc2d68d01db4b1ac4.png" src="_images/58302d077bbe43ed6de05c3f4329e1b5f34fb43b033f4dcdc2d68d01db4b1ac4.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>📊 Resultado de la prueba Dickey-Fuller Aumentada (ADF):
+
+Estadístico ADF: -4.7948
+Valor p: 0.0001
+Número de rezagos usados: 0
+Número de observaciones: 34
+Valores críticos para distintos niveles de confianza:
+   1%: -3.6392
+   5%: -2.9512
+   10%: -2.6144
+
+✅ Conclusión: La serie ES estacionaria (se rechaza H0).
+   ➜ La media y la varianza son estables en el tiempo.
+</pre></div>
+</div>
+</div>
+</div>
+<p>La prueba Dickey-Fuller Aumentada aplicada a la serie de producción de café en Colombia arroja un valor p superior a 0.05, por lo cual no se rechaza la hipótesis nula de no estacionariedad. Esto implica que la serie presenta una tendencia temporal significativa y que la media varía a lo largo del tiempo. En consecuencia, se aplicará una diferenciación para estabilizar su comportamiento antes del análisis.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<span class="c1"># PRUEBA DE ESTACIONARIEDAD (ADF)</span>
+<span class="c1"># ----------------------------------------------------------</span>
+<span class="c1"># Objetivo:</span>
+<span class="c1">#   1. Evaluar si la serie es estacionaria</span>
+<span class="c1">#   2. Determinar si es necesario aplicar diferenciación</span>
+<span class="c1"># ==========================================================</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.tsa.stattools</span><span class="w"> </span><span class="kn">import</span> <span class="n">adfuller</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># --- 1. Graficar la serie original ---</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">serie</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Serie original — Producción </span><span class="si">{</span><span class="n">pais_objetivo</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">producto_objetivo</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Año&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Producción (toneladas)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># --- 2. Aplicar la prueba ADF ---</span>
+<span class="n">resultado_adf</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📊 Resultado de la prueba Dickey-Fuller Aumentada (ADF):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estadístico ADF: </span><span class="si">{</span><span class="n">resultado_adf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Valor p: </span><span class="si">{</span><span class="n">resultado_adf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Número de rezagos usados: </span><span class="si">{</span><span class="n">resultado_adf</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Número de observaciones: </span><span class="si">{</span><span class="n">resultado_adf</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valores críticos para distintos niveles de confianza:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">resultado_adf</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- 3. Interpretación automática ---</span>
+<span class="k">if</span> <span class="n">resultado_adf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Conclusión: La serie ES estacionaria (se rechaza H0).&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   ➜ La media y la varianza son estables en el tiempo.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">⚠️ Conclusión: La serie NO es estacionaria (no se rechaza H0).&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   ➜ Presenta tendencia o variabilidad cambiante; se requerirá diferenciación.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/58302d077bbe43ed6de05c3f4329e1b5f34fb43b033f4dcdc2d68d01db4b1ac4.png" src="_images/58302d077bbe43ed6de05c3f4329e1b5f34fb43b033f4dcdc2d68d01db4b1ac4.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>📊 Resultado de la prueba Dickey-Fuller Aumentada (ADF):
+
+Estadístico ADF: -4.7948
+Valor p: 0.0001
+Número de rezagos usados: 0
+Número de observaciones: 34
+Valores críticos para distintos niveles de confianza:
+   1%: -3.6392
+   5%: -2.9512
+   10%: -2.6144
+
+✅ Conclusión: La serie ES estacionaria (se rechaza H0).
+   ➜ La media y la varianza son estables en el tiempo.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<span class="c1">#  DIFERENCIACIÓN Y NUEVA PRUEBA ADF</span>
+<span class="c1"># ----------------------------------------------------------</span>
+<span class="c1"># Objetivo:</span>
+<span class="c1">#   1. Aplicar una diferenciación a la serie original</span>
+<span class="c1">#   2. Evaluar nuevamente la estacionariedad con la prueba ADF</span>
+<span class="c1"># ==========================================================</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.tsa.stattools</span><span class="w"> </span><span class="kn">import</span> <span class="n">adfuller</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># --- 1. Aplicar la primera diferencia ---</span>
+<span class="n">serie_diff</span> <span class="o">=</span> <span class="n">serie</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="c1"># --- 2. Graficar la serie diferenciada ---</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">serie_diff</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Serie diferenciada — Producción </span><span class="si">{</span><span class="n">pais_objetivo</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">producto_objetivo</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Año&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cambio en la producción (toneladas)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># --- 3. Aplicar nuevamente la prueba ADF ---</span>
+<span class="n">resultado_adf_diff</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">serie_diff</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Resultado de la prueba Dickey-Fuller Aumentada (ADF) — Serie diferenciada:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estadístico ADF: </span><span class="si">{</span><span class="n">resultado_adf_diff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Valor p: </span><span class="si">{</span><span class="n">resultado_adf_diff</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Número de rezagos usados: </span><span class="si">{</span><span class="n">resultado_adf_diff</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Número de observaciones: </span><span class="si">{</span><span class="n">resultado_adf_diff</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valores críticos:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">resultado_adf_diff</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- 4. Interpretación ---</span>
+<span class="k">if</span> <span class="n">resultado_adf_diff</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Conclusión: La serie diferenciada ES estacionaria (se rechaza H0).&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   ➜ La media y la varianza son estables; la diferenciación fue efectiva.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">⚠️ Conclusión: La serie diferenciada AÚN no es estacionaria.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   ➜ Podría requerirse una segunda diferenciación o transformación adicional.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/1cf45136df187c3a177443f60b118fab8d00035b138e3ecf47dfd52d7fbe4275.png" src="_images/1cf45136df187c3a177443f60b118fab8d00035b138e3ecf47dfd52d7fbe4275.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Resultado de la prueba Dickey-Fuller Aumentada (ADF) — Serie diferenciada:
+
+Estadístico ADF: -6.1983
+Valor p: 0.0000
+Número de rezagos usados: 1
+Número de observaciones: 32
+Valores críticos:
+   1%: -3.6535
+   5%: -2.9572
+   10%: -2.6176
+
+✅ Conclusión: La serie diferenciada ES estacionaria (se rechaza H0).
+   ➜ La media y la varianza son estables; la diferenciación fue efectiva.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Tras aplicar la diferenciación de primer orden a la serie de producción de café en Colombia, el valor p obtenido en la prueba Dickey-Fuller Aumentada disminuyó significativamente, ubicándose por debajo del umbral de 0.05. Esto permite concluir que la serie diferenciada es estacionaria, es decir, su media y varianza permanecen estables en el tiempo. Por tanto, el proceso de diferenciación resultó efectivo para corregir la tendencia observada en la serie original.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<span class="c1">#  — COMPARACIÓN VISUAL: SERIE ORIGINAL VS DIFERENCIADA</span>
+<span class="c1"># ----------------------------------------------------------</span>
+<span class="c1"># Objetivo:</span>
+<span class="c1">#   1. Comparar la serie original con la diferenciada</span>
+<span class="c1">#   2. Visualizar el efecto de la diferenciación en la tendencia</span>
+<span class="c1"># ==========================================================</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+
+<span class="c1"># Serie original</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">serie</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">serie</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines+markers&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Producción Original&#39;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">),</span>
+    <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">))</span>
+
+<span class="c1"># Serie diferenciada</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">serie_diff</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">serie_diff</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines+markers&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Diferenciación No Estacional&#39;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">),</span>
+    <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot; Producción de Café en Colombia: Serie Original vs Diferenciada&quot;</span><span class="p">,</span>
+    <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Año&quot;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Toneladas&quot;</span><span class="p">,</span>
+    <span class="n">legend_title</span><span class="o">=</span><span class="s2">&quot;Serie&quot;</span><span class="p">,</span>
+    <span class="n">template</span><span class="o">=</span><span class="s2">&quot;plotly_white&quot;</span><span class="p">,</span>
+    <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">13</span><span class="p">),</span>
+    <span class="n">title_x</span><span class="o">=</span><span class="mf">0.5</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><html>
+<head><meta charset="utf-8" /></head>
+<body>
+    <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="9c4c8813-c96c-498f-a9b7-0760202ed6a2" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("9c4c8813-c96c-498f-a9b7-0760202ed6a2")) {                    Plotly.newPlot(                        "9c4c8813-c96c-498f-a9b7-0760202ed6a2",                        [{"line":{"color":"blue"},"marker":{"size":5},"mode":"lines+markers","name":"Producción Original","x":["1990-01-01T00:00:00","1991-01-01T00:00:00","1992-01-01T00:00:00","1993-01-01T00:00:00","1994-01-01T00:00:00","1995-01-01T00:00:00","1996-01-01T00:00:00","1997-01-01T00:00:00","1998-01-01T00:00:00","1999-01-01T00:00:00","2000-01-01T00:00:00","2001-01-01T00:00:00","2002-01-01T00:00:00","2003-01-01T00:00:00","2004-01-01T00:00:00","2005-01-01T00:00:00","2006-01-01T00:00:00","2007-01-01T00:00:00","2008-01-01T00:00:00","2009-01-01T00:00:00","2010-01-01T00:00:00","2011-01-01T00:00:00","2012-01-01T00:00:00","2013-01-01T00:00:00","2014-01-01T00:00:00","2015-01-01T00:00:00","2016-01-01T00:00:00","2017-01-01T00:00:00","2018-01-01T00:00:00","2019-01-01T00:00:00","2020-01-01T00:00:00","2021-01-01T00:00:00","2022-01-01T00:00:00","2023-01-01T00:00:00","2024-01-01T00:00:00"],"y":[7349903,2432517,8651881,6295200,4140479,8996761,2758571,4992472,4200673,417537,2673619,4757693,3563351,1949396,7485034,8101482,8334679,2050367,4250276,8004069,4346049,3006158,9918159,9402640,9406167,6959991,1407506,3808654,1315502,6392518,5742264,4321038,2668103,5296467,9292300],"type":"scatter"},{"line":{"color":"red"},"marker":{"size":5},"mode":"lines+markers","name":"Diferenciación No Estacional","x":["1991-01-01T00:00:00","1992-01-01T00:00:00","1993-01-01T00:00:00","1994-01-01T00:00:00","1995-01-01T00:00:00","1996-01-01T00:00:00","1997-01-01T00:00:00","1998-01-01T00:00:00","1999-01-01T00:00:00","2000-01-01T00:00:00","2001-01-01T00:00:00","2002-01-01T00:00:00","2003-01-01T00:00:00","2004-01-01T00:00:00","2005-01-01T00:00:00","2006-01-01T00:00:00","2007-01-01T00:00:00","2008-01-01T00:00:00","2009-01-01T00:00:00","2010-01-01T00:00:00","2011-01-01T00:00:00","2012-01-01T00:00:00","2013-01-01T00:00:00","2014-01-01T00:00:00","2015-01-01T00:00:00","2016-01-01T00:00:00","2017-01-01T00:00:00","2018-01-01T00:00:00","2019-01-01T00:00:00","2020-01-01T00:00:00","2021-01-01T00:00:00","2022-01-01T00:00:00","2023-01-01T00:00:00","2024-01-01T00:00:00"],"y":[-4917386.0,6219364.0,-2356681.0,-2154721.0,4856282.0,-6238190.0,2233901.0,-791799.0,-3783136.0,2256082.0,2084074.0,-1194342.0,-1613955.0,5535638.0,616448.0,233197.0,-6284312.0,2199909.0,3753793.0,-3658020.0,-1339891.0,6912001.0,-515519.0,3527.0,-2446176.0,-5552485.0,2401148.0,-2493152.0,5077016.0,-650254.0,-1421226.0,-1652935.0,2628364.0,3995833.0],"type":"scatter"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmapgl":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmapgl"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"font":{"size":13},"title":{"text":" Producción de Café en Colombia: Serie Original vs Diferenciada","x":0.5},"xaxis":{"title":{"text":"Año"}},"yaxis":{"title":{"text":"Toneladas"}},"legend":{"title":{"text":"Serie"}}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('9c4c8813-c96c-498f-a9b7-0760202ed6a2');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                            </script>        </div>
+</body>
+</html></div></div>
+</div>
+<p>En la comparación entre la serie original y la serie diferenciada de la producción de café en Colombia se evidencia que la serie original mantiene una clara tendencia ascendente y fuertes variaciones interanuales, reflejando la evolución estructural del sector cafetero a lo largo del tiempo. En contraste, la serie diferenciada elimina la tendencia, concentrando las fluctuaciones alrededor del valor cero y mostrando una variabilidad más homogénea. Esto indica que la diferenciación fue efectiva para estabilizar la serie, corrigiendo la no estacionariedad y permitiendo analizar únicamente los cambios relativos entre años consecutivos.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================================================</span>
+<span class="c1">#  — COMPARACIÓN COMPLETA: ORIGINAL vs DIFERENCIACIONES</span>
+<span class="c1"># ----------------------------------------------------------</span>
+<span class="c1"># Objetivo:</span>
+<span class="c1">#   1. Mostrar cómo cambia la estructura de la serie al aplicar</span>
+<span class="c1">#      primera y segunda diferenciación.</span>
+<span class="c1">#   2. Evidenciar la estabilización de la varianza y la media.</span>
+<span class="c1"># ==========================================================</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+
+<span class="c1"># --- Crear segunda diferenciación ---</span>
+<span class="n">serie_diff2</span> <span class="o">=</span> <span class="n">serie</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="c1"># --- Crear figura ---</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+
+<span class="c1"># Serie original</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">serie</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">serie</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines+markers&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Producción Original&#39;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">),</span>
+    <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">))</span>
+
+<span class="c1"># 1ª Diferenciación</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">serie</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">serie</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines+markers&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;1ª Diferenciación&#39;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">),</span>
+    <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">))</span>
+
+<span class="c1"># 2ª Diferenciación</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">serie_diff2</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">serie_diff2</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines+markers&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;2ª Diferenciación&#39;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;mediumseagreen&#39;</span><span class="p">),</span>
+    <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">))</span>
+
+<span class="c1"># --- Configuración de la gráfica ---</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot; Producción de Café en Colombia: Original vs Diferenciaciones&quot;</span><span class="p">,</span>
+    <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Año&quot;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Toneladas&quot;</span><span class="p">,</span>
+    <span class="n">legend_title</span><span class="o">=</span><span class="s2">&quot;Serie&quot;</span><span class="p">,</span>
+    <span class="n">template</span><span class="o">=</span><span class="s2">&quot;plotly_white&quot;</span><span class="p">,</span>
+    <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">13</span><span class="p">),</span>
+    <span class="n">title_x</span><span class="o">=</span><span class="mf">0.5</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><html>
+<head><meta charset="utf-8" /></head>
+<body>
+    <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="7fd4a531-cf44-4c75-b927-73c548b2def6" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("7fd4a531-cf44-4c75-b927-73c548b2def6")) {                    Plotly.newPlot(                        "7fd4a531-cf44-4c75-b927-73c548b2def6",                        [{"line":{"color":"blue"},"marker":{"size":5},"mode":"lines+markers","name":"Producción Original","x":["1990-01-01T00:00:00","1991-01-01T00:00:00","1992-01-01T00:00:00","1993-01-01T00:00:00","1994-01-01T00:00:00","1995-01-01T00:00:00","1996-01-01T00:00:00","1997-01-01T00:00:00","1998-01-01T00:00:00","1999-01-01T00:00:00","2000-01-01T00:00:00","2001-01-01T00:00:00","2002-01-01T00:00:00","2003-01-01T00:00:00","2004-01-01T00:00:00","2005-01-01T00:00:00","2006-01-01T00:00:00","2007-01-01T00:00:00","2008-01-01T00:00:00","2009-01-01T00:00:00","2010-01-01T00:00:00","2011-01-01T00:00:00","2012-01-01T00:00:00","2013-01-01T00:00:00","2014-01-01T00:00:00","2015-01-01T00:00:00","2016-01-01T00:00:00","2017-01-01T00:00:00","2018-01-01T00:00:00","2019-01-01T00:00:00","2020-01-01T00:00:00","2021-01-01T00:00:00","2022-01-01T00:00:00","2023-01-01T00:00:00","2024-01-01T00:00:00"],"y":[7349903,2432517,8651881,6295200,4140479,8996761,2758571,4992472,4200673,417537,2673619,4757693,3563351,1949396,7485034,8101482,8334679,2050367,4250276,8004069,4346049,3006158,9918159,9402640,9406167,6959991,1407506,3808654,1315502,6392518,5742264,4321038,2668103,5296467,9292300],"type":"scatter"},{"line":{"color":"red"},"marker":{"size":5},"mode":"lines+markers","name":"1ª Diferenciación","x":["1991-01-01T00:00:00","1992-01-01T00:00:00","1993-01-01T00:00:00","1994-01-01T00:00:00","1995-01-01T00:00:00","1996-01-01T00:00:00","1997-01-01T00:00:00","1998-01-01T00:00:00","1999-01-01T00:00:00","2000-01-01T00:00:00","2001-01-01T00:00:00","2002-01-01T00:00:00","2003-01-01T00:00:00","2004-01-01T00:00:00","2005-01-01T00:00:00","2006-01-01T00:00:00","2007-01-01T00:00:00","2008-01-01T00:00:00","2009-01-01T00:00:00","2010-01-01T00:00:00","2011-01-01T00:00:00","2012-01-01T00:00:00","2013-01-01T00:00:00","2014-01-01T00:00:00","2015-01-01T00:00:00","2016-01-01T00:00:00","2017-01-01T00:00:00","2018-01-01T00:00:00","2019-01-01T00:00:00","2020-01-01T00:00:00","2021-01-01T00:00:00","2022-01-01T00:00:00","2023-01-01T00:00:00","2024-01-01T00:00:00"],"y":[-4917386.0,6219364.0,-2356681.0,-2154721.0,4856282.0,-6238190.0,2233901.0,-791799.0,-3783136.0,2256082.0,2084074.0,-1194342.0,-1613955.0,5535638.0,616448.0,233197.0,-6284312.0,2199909.0,3753793.0,-3658020.0,-1339891.0,6912001.0,-515519.0,3527.0,-2446176.0,-5552485.0,2401148.0,-2493152.0,5077016.0,-650254.0,-1421226.0,-1652935.0,2628364.0,3995833.0],"type":"scatter"},{"line":{"color":"mediumseagreen"},"marker":{"size":5},"mode":"lines+markers","name":"2ª Diferenciación","x":["1992-01-01T00:00:00","1993-01-01T00:00:00","1994-01-01T00:00:00","1995-01-01T00:00:00","1996-01-01T00:00:00","1997-01-01T00:00:00","1998-01-01T00:00:00","1999-01-01T00:00:00","2000-01-01T00:00:00","2001-01-01T00:00:00","2002-01-01T00:00:00","2003-01-01T00:00:00","2004-01-01T00:00:00","2005-01-01T00:00:00","2006-01-01T00:00:00","2007-01-01T00:00:00","2008-01-01T00:00:00","2009-01-01T00:00:00","2010-01-01T00:00:00","2011-01-01T00:00:00","2012-01-01T00:00:00","2013-01-01T00:00:00","2014-01-01T00:00:00","2015-01-01T00:00:00","2016-01-01T00:00:00","2017-01-01T00:00:00","2018-01-01T00:00:00","2019-01-01T00:00:00","2020-01-01T00:00:00","2021-01-01T00:00:00","2022-01-01T00:00:00","2023-01-01T00:00:00","2024-01-01T00:00:00"],"y":[11136750.0,-8576045.0,201960.0,7011003.0,-11094472.0,8472091.0,-3025700.0,-2991337.0,6039218.0,-172008.0,-3278416.0,-419613.0,7149593.0,-4919190.0,-383251.0,-6517509.0,8484221.0,1553884.0,-7411813.0,2318129.0,8251892.0,-7427520.0,519046.0,-2449703.0,-3106309.0,7953633.0,-4894300.0,7570168.0,-5727270.0,-770972.0,-231709.0,4281299.0,1367469.0],"type":"scatter"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmapgl":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmapgl"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"font":{"size":13},"title":{"text":" Producción de Café en Colombia: Original vs Diferenciaciones","x":0.5},"xaxis":{"title":{"text":"Año"}},"yaxis":{"title":{"text":"Toneladas"}},"legend":{"title":{"text":"Serie"}}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('7fd4a531-cf44-4c75-b927-73c548b2def6');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                            </script>        </div>
+</body>
+</html></div></div>
+</div>
+<p>La comparación entre la serie original y sus dos diferenciaciones evidencia claramente el efecto de la transformación. La serie original conserva una tendencia marcada y fluctuaciones amplias, mientras que la primera diferenciación elimina gran parte de esa tendencia, estabilizando parcialmente la varianza. Al aplicar la segunda diferenciación, la serie se centra completamente alrededor del cero, mostrando un comportamiento estacionario. Esto confirma que la diferenciación es un paso esencial para modelar adecuadamente la producción de café en Colombia mediante técnicas de predicción basadas en series de tiempo.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Capitulo1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">CAPITULO 1:</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sandra Guzmán y Grupo 9
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

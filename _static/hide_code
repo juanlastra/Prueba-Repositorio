@@ -1,0 +1,9 @@
+/* Oculta todas las celdas de código Python */
+div.cell_input, div.cell.code_cell, div.cell.docutils.container {
+  display: none !important;
+}
+
+/* Opcional: también oculta los prompts tipo In [1]: */
+div.prompt {
+  display: none !important;
+}
