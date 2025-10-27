@@ -6,28 +6,16 @@ root: ./
 title: "Series de Tiempo 2025 - Grupo 9"
 author: "Sandra Guzmán y Grupo 9"
 
-# ====================================================
-# CONTROL DE EJECUCIÓN DE NOTEBOOKS
-# ====================================================
 execute:
   execute_notebooks: "off"
 
-# ====================================================
-# ESTRUCTURA Y RUTAS
-# ====================================================
 only_build_toc_files: true
 
-# ====================================================
-# REPOSITORIO (IMPORTANTE para desplegar correctamente en GitHub Pages)
-# ====================================================
 repository:
   url: https://github.com/Sandra-guzman/Series-de-tiempo-2025-grupo-9
   branch: main
   path_to_book: book
 
-# ====================================================
-# OPCIONES DE HTML Y VISUALIZACIÓN
-# ====================================================
 html:
   favicon: ""
   logo: ""
@@ -38,20 +26,14 @@ html:
     <div style="text-align:center;">
       © 2025 Sandra Guzmán y Grupo 9 — Pontificia Universidad Javeriana
     </div>
+  extra_css:
+    - _static/hide_code.css   # 👈 agregamos una hoja de estilo personalizada
 
-# ====================================================
-# CONFIGURACIÓN DE SPHINX Y MYST-NB (OCULTAR CÓDIGO)
-# ====================================================
 sphinx:
   config:
-    # 🔒 Clave actual para ocultar inputs de código
-    nb_execution_show_input: false
-
-    # 🔒 Asegura compatibilidad con versiones recientes
-    jupyter_execute_notebooks: "off"
-    mystnb:
-      remove_code_source: true
-
-    # Opciones del tema HTML
+    nb_execution_show_input: false      # oculta entradas
+    nb_render_plugin: "myst-nb"         # asegura el motor correcto
+    myst_nb:
+      remove_code_source: true          # elimina el código fuente
     html_theme_options:
       navigation_with_keys: true
