@@ -1,0 +1,48 @@
+name: Build and Deploy Jupyter Book
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Clona el repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Configura Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      # 3️⃣ Instala dependencias necesarias
+      - name: Install dependencies
+        run: |
+          pip install -U jupyter-book ghp-import
+
+      # 4️⃣ Muestra la estructura antes del build
+      - name: List files before build
+        run: |
+          echo "📁 Estructura del proyecto antes del build:"
+          ls -R
+
+      # 5️⃣ Construye el libro desde la carpeta /book
+      - name: Build the Jupyter Book (debug mode)
+        working-directory: ./book
+        run: |
+          echo "🚧 Iniciando construcción del libro..."
+          jupyter-book build . --verbose
+
+      # 6️⃣ Despliega el sitio en GitHub Pages
+      - name: Deploy to GitHub Pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🚀 Desplegando en GitHub Pages..."
+          ghp-import -n -p -f book/_build/html

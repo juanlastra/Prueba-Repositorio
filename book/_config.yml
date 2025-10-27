@@ -1,0 +1,49 @@
+# ====================================================
+# CONFIGURACIÓN PRINCIPAL DEL JUPYTER BOOK
+# ====================================================
+
+root: ./
+title: "Series de Tiempo 2025 - Grupo 9"
+author: "Sandra Guzmán y Grupo 9"
+
+# ====================================================
+# CONTROL DE EJECUCIÓN DE NOTEBOOKS
+# ====================================================
+execute:
+  execute_notebooks: "off"
+
+# ====================================================
+# ESTRUCTURA Y RUTAS
+# ====================================================
+only_build_toc_files: true
+
+# ====================================================
+# REPOSITORIO (IMPORTANTE para desplegar correctamente en GitHub Pages)
+# ====================================================
+repository:
+  url: https://github.com/Sandra-guzman/Series-de-tiempo-2025-grupo-9
+  branch: main
+  path_to_book: book
+
+# ====================================================
+# OPCIONES DE HTML Y VISUALIZACIÓN
+# ====================================================
+html:
+  favicon: ""
+  logo: ""
+  use_repository_button: true
+  use_issues_button: true
+  use_edit_page_button: false
+  extra_footer: |
+    <div style="text-align:center;">
+      © 2025 Sandra Guzmán y Grupo 9 — Pontificia Universidad Javeriana
+    </div>
+
+# ====================================================
+# METADATOS OPCIONALES
+# ====================================================
+sphinx:
+  config:
+    html_show_copyright: false
+    html_theme_options:
+      navigation_with_keys: true
