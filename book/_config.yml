@@ -44,10 +44,14 @@ html:
 # ====================================================
 sphinx:
   config:
-    # Oculta TODAS las celdas de entrada (código) en el HTML
+    # 🔒 Clave actual para ocultar inputs de código
     nb_execution_show_input: false
-    nb_input: false
-    # Desactiva los botones de mostrar/ocultar
+
+    # 🔒 Asegura compatibilidad con versiones recientes
+    jupyter_execute_notebooks: "off"
+    mystnb:
+      remove_code_source: true
+
+    # Opciones del tema HTML
     html_theme_options:
       navigation_with_keys: true
-      use_togglebutton: false
